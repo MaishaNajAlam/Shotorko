@@ -8,7 +8,8 @@ const firebaseConfig = {
   projectId: "",
   storageBucket: "",
   messagingSenderId: "",
-  appId: ""
+  appId: "",
+  measurementId: ""
 };
 
 const app = initializeApp(firebaseConfig);
