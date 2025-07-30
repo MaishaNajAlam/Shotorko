@@ -162,3 +162,75 @@ table tbody tr:hover {
 .details strong {
   color: #004080;
 }
+/* Login form specific styles */
+.login-container {
+  max-width: 400px;
+  padding: 40px 30px;
+  margin: 60px auto 40px auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  border-radius: 12px;
+  background: white;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  font-weight: 600;
+  margin: 12px 0 6px 0;
+  color: #002d72;
+  font-size: 1rem;
+}
+
+.login-form input {
+  width: 100%;
+  max-width: 100%;
+  margin-right: 0;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #004080;
+  outline: none;
+}
+
+.login-form button {
+  margin-top: 18px;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 0 3px 7px rgba(0, 64, 128, 0.4);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-form button:hover {
+  background-color: #002c66;
+  box-shadow: 0 5px 15px rgba(0, 44, 102, 0.6);
+}
+
+/* Loading screen */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.4rem;
+  color: #004080;
+  font-weight: bold;
+}
+.police-logo {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+

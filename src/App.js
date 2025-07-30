@@ -8,11 +8,12 @@ import {
 
 import { auth } from "./firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import './App.css';
+import "./App.css";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Alerts from "./Alerts";
 import AlertDetails from "./AlertDetails";
+import Header from "./Header"; // optional
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,10 +32,11 @@ function App() {
     setUser(null);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div className="loading-screen">Loading...</div>;
 
   return (
     <Router>
+      {user && <Header onLogout={handleLogout} />}
       <Routes>
         <Route
           path="/login"
@@ -42,7 +44,7 @@ function App() {
         />
         <Route
           path="/dashboard"
-          element={user ? <Dashboard user={user} onLogout={handleLogout} /> : <Navigate to="/login" replace />}
+          element={user ? <Dashboard user={user} /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/alerts"
@@ -59,3 +61,5 @@ function App() {
 }
 
 export default App;
+
+

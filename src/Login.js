@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
+import policeLogo from "./bangladesh-police-logo.png"; // Logo in src/
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -19,23 +20,36 @@ function Login({ onLogin }) {
   };
 
   return (
-    <div className="container">
+    <div className="container login-container">
+      <img
+        src={policeLogo}
+        alt="Bangladesh Police Logo"
+        className="police-logo"
+      />
       <h2>Police Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form" noValidate>
+        <label htmlFor="email">Police Email</label>
         <input
+          id="email"
           type="email"
-          placeholder="Police Email"
+          placeholder="Enter your police email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="username"
         />
+
+        <label htmlFor="password">Password</label>
         <input
+          id="password"
           type="password"
-          placeholder="Password"
+          placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="current-password"
         />
+
         <button type="submit">Login</button>
         {error && <p className="error-message">{error}</p>}
       </form>
@@ -44,3 +58,5 @@ function Login({ onLogin }) {
 }
 
 export default Login;
+
+
