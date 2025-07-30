@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
- apiKey: "AIzaSyAiosUVgkDSn_kN8Knhql7LF0Jqv7K2kbQ",
-  authDomain: "shotorko-f950b.firebaseapp.com",
-  projectId: "shotorko-f950b",
-  storageBucket: "shotorko-f950b.firebasestorage.app",
-  messagingSenderId: "185098753354",
-  appId: "1:185098753354:web:385a6ac8c13802fdff1db3",
-  measurementId: "G-6KHDHQ7P4Q"
+ apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
 };
 
 const app = initializeApp(firebaseConfig);
