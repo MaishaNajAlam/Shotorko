@@ -61,7 +61,18 @@ function AlertDetails() {
       <div className="container details">
         <h2>Alert Details</h2>
         <p>
-          <strong>Location:</strong> {currentAlert.location}
+          <strong>Location:</strong>{" "}
+          {currentAlert.location?.lat && currentAlert.location?.lng ? (
+            <a
+              href={`https://www.google.com/maps?q=${currentAlert.location.lat},${currentAlert.location.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📍 ({currentAlert.location.lat.toFixed(4)}, {currentAlert.location.lng.toFixed(4)})
+            </a>
+          ) : (
+            "N/A"
+          )}
         </p>
         <p>
           <strong>Emergency Type:</strong> {currentAlert.emergencyType}
@@ -74,9 +85,6 @@ function AlertDetails() {
           {currentAlert.timestamp?.toDate
             ? currentAlert.timestamp.toDate().toLocaleString()
             : currentAlert.timestamp}
-        </p>
-        <p>
-          <strong>Triggered By:</strong> {currentAlert.triggeredBy}
         </p>
 
         {currentAlert.status === "New" && (
