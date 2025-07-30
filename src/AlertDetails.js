@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { firestore } from "./firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import policeLogo from "./bangladesh-police-logo.png";
+import policeLogo from "./SHOTORKO.png";
 
 function AlertDetails() {
   const { alertId } = useParams();
@@ -61,7 +61,18 @@ function AlertDetails() {
       <div className="container details">
         <h2>Alert Details</h2>
         <p>
-          <strong>Location:</strong> {currentAlert.location}
+          <strong>Location:</strong>{" "}
+          {currentAlert.location?.lat && currentAlert.location?.lng ? (
+            <a
+              href={`https://www.google.com/maps?q=${currentAlert.location.lat},${currentAlert.location.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📍 ({currentAlert.location.lat.toFixed(4)}, {currentAlert.location.lng.toFixed(4)})
+            </a>
+          ) : (
+            "N/A"
+          )}
         </p>
         <p>
           <strong>Emergency Type:</strong> {currentAlert.emergencyType}
@@ -75,19 +86,17 @@ function AlertDetails() {
             ? currentAlert.timestamp.toDate().toLocaleString()
             : currentAlert.timestamp}
         </p>
-        <p>
-          <strong>Triggered By:</strong> {currentAlert.triggeredBy}
-        </p>
 
-        {currentAlert.status === "New" && (
-          <button onClick={() => updateStatus("Ongoing")}>Receive</button>
-        )}
-        {currentAlert.status === "Ongoing" && (
-          <button onClick={() => updateStatus("Resolved")}>Resolve</button>
-        )}
-        <button onClick={() => navigate("/alerts")} style={{ marginLeft: 10 }}>
-          Back to Alerts
-        </button>
+        <div className="button-group">
+  {currentAlert.status === "New" && (
+    <button onClick={() => updateStatus("Ongoing")}>Receive</button>
+  )}
+  {currentAlert.status === "Ongoing" && (
+    <button onClick={() => updateStatus("Resolved")}>Resolve</button>
+  )}
+  <button onClick={() => navigate("/alerts")}>Back to Alerts</button>
+</div>
+
       </div>
     </>
   );
