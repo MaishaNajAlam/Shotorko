@@ -1,22 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import policeLogo from "./bangladesh-police-logo.png"; // place the logo file in src folder or public folder
+import policeLogo from "./SHOTORKO.png";
+import "./App.css";
 
 function Dashboard({ user, onLogout }) {
   return (
     <>
-      <header>
+      <header className="dashboard-header">
         <img src={policeLogo} alt="Bangladesh Police Logo" className="logo" />
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
+        <nav className="dashboard-nav">
           <Link to="/alerts">Alerts</Link>
           <button onClick={onLogout}>Logout</button>
         </nav>
       </header>
-      <div className="container">
-        <h2>Welcome</h2>
-        <p>This is the Police Dashboard.</p>
-      </div>
+
+      <main className="dashboard-main">
+        <h1>Welcome to SHOTORKO</h1>
+        <p className="subtext">Bangladesh Police Dashboard</p>
+        <div className="info-buttons">
+          <p> </p>
+          <button className="info-btn">📞 Emergency Hotlines</button>
+          <button className="info-btn">❓ FAQ</button>
+          <button className="info-btn">ℹ️ About Us</button>
+        </div>
+      </main>
     </>
   );
 }
