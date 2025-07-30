@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "185098753354",
+    "project_id": "shotorko-f950b",
+    "storage_bucket": "shotorko-f950b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185098753354:android:0f3926540bbade49ff1db3",
+        "android_client_info": {
+          "package_name": "com.example.my_first_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsmmfCG8m8BjXF8lYlpe1VBSCXz1S5-OI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
