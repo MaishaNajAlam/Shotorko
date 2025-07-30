@@ -9,8 +9,6 @@ function Alerts() {
   const [filters, setFilters] = useState({
     emergencyType: "",
     status: "",
-    location: "",
-    triggeredBy: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -35,14 +33,6 @@ function Alerts() {
       if (filters.status)
         data = data.filter(
           (a) => a.status?.toLowerCase() === filters.status.toLowerCase()
-        );
-      if (filters.location)
-        data = data.filter((a) =>
-          a.location?.toLowerCase().includes(filters.location.toLowerCase())
-        );
-      if (filters.triggeredBy)
-        data = data.filter((a) =>
-          a.triggeredBy?.toLowerCase().includes(filters.triggeredBy.toLowerCase())
         );
 
       data.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds);
@@ -78,7 +68,6 @@ function Alerts() {
         <nav>
           <a href="/dashboard">Dashboard</a>
           <a href="/alerts">Alerts</a>
-          {/* Consider Logout button if needed here */}
         </nav>
       </header>
       <div className="container">
@@ -98,20 +87,6 @@ function Alerts() {
             <option value="Ongoing">Ongoing</option>
             <option value="Resolved">Resolved</option>
           </select>
-          <input
-            type="text"
-            name="location"
-            placeholder="Filter by Location"
-            value={filters.location}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="triggeredBy"
-            placeholder="Filter by User ID"
-            value={filters.triggeredBy}
-            onChange={handleFilterChange}
-          />
           <button type="submit">Search</button>
         </form>
 
@@ -127,7 +102,6 @@ function Alerts() {
                 <th>Emergency Type</th>
                 <th>Status</th>
                 <th>Timestamp</th>
-                <th>Triggered By</th>
               </tr>
             </thead>
             <tbody>
@@ -136,7 +110,19 @@ function Alerts() {
                   key={alert.id}
                   onClick={() => navigate(`/alerts/${alert.id}`)}
                 >
-                  <td>{alert.location}</td>
+                  <td>
+                    {alert.location?.lat && alert.location?.lng ? (
+                      <a
+                        href={`https://www.google.com/maps?q=${alert.location.lat},${alert.location.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        📍 ({alert.location.lat.toFixed(4)}, {alert.location.lng.toFixed(4)})
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
+                  </td>
                   <td>{alert.emergencyType}</td>
                   <td>{alert.status}</td>
                   <td>
@@ -144,7 +130,6 @@ function Alerts() {
                       ? alert.timestamp.toDate().toLocaleString()
                       : alert.timestamp}
                   </td>
-                  <td>{alert.triggeredBy}</td>
                 </tr>
               ))}
             </tbody>
