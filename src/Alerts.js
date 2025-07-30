@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { firestore } from "./firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import policeLogo from "./bangladesh-police-logo.png";
+import policeLogo from "./SHOTORKO.png";
+import "./App.css";
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
   const [filters, setFilters] = useState({
     emergencyType: "",
     status: "",
-    location: "",
-    triggeredBy: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -27,22 +26,15 @@ function Alerts() {
       }));
 
       if (filters.emergencyType)
-        data = data.filter((a) =>
-          a.emergencyType
-            ?.toLowerCase()
-            .includes(filters.emergencyType.toLowerCase())
+        data = data.filter(
+          (a) =>
+            a.emergencyType
+              ?.toLowerCase()
+              .includes(filters.emergencyType.toLowerCase())
         );
       if (filters.status)
         data = data.filter(
           (a) => a.status?.toLowerCase() === filters.status.toLowerCase()
-        );
-      if (filters.location)
-        data = data.filter((a) =>
-          a.location?.toLowerCase().includes(filters.location.toLowerCase())
-        );
-      if (filters.triggeredBy)
-        data = data.filter((a) =>
-          a.triggeredBy?.toLowerCase().includes(filters.triggeredBy.toLowerCase())
         );
 
       data.sort((a, b) => b.timestamp?.seconds - a.timestamp?.seconds);
@@ -78,40 +70,36 @@ function Alerts() {
         <nav>
           <a href="/dashboard">Dashboard</a>
           <a href="/alerts">Alerts</a>
-          {/* Consider Logout button if needed here */}
         </nav>
       </header>
+
       <div className="container">
         <h2>Emergency Alerts</h2>
 
         <form onSubmit={handleFilterSubmit} className="filter-form">
-          <input
-            type="text"
+          <select
             name="emergencyType"
-            placeholder="Filter by Emergency Type"
             value={filters.emergencyType}
             onChange={handleFilterChange}
-          />
-          <select name="status" value={filters.status} onChange={handleFilterChange}>
+          >
+            <option value="">All Emergency Types</option>
+            <option value="Police">Police</option>
+            <option value="Fire">Fire</option>
+            <option value="Other">Other</option>
+            <option value="Ambulance">Ambulance</option>
+          </select>
+
+          <select
+            name="status"
+            value={filters.status}
+            onChange={handleFilterChange}
+          >
             <option value="">All Status</option>
             <option value="New">New</option>
             <option value="Ongoing">Ongoing</option>
             <option value="Resolved">Resolved</option>
           </select>
-          <input
-            type="text"
-            name="location"
-            placeholder="Filter by Location"
-            value={filters.location}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="triggeredBy"
-            placeholder="Filter by User ID"
-            value={filters.triggeredBy}
-            onChange={handleFilterChange}
-          />
+
           <button type="submit">Search</button>
         </form>
 
@@ -127,7 +115,6 @@ function Alerts() {
                 <th>Emergency Type</th>
                 <th>Status</th>
                 <th>Timestamp</th>
-                <th>Triggered By</th>
               </tr>
             </thead>
             <tbody>
@@ -136,7 +123,19 @@ function Alerts() {
                   key={alert.id}
                   onClick={() => navigate(`/alerts/${alert.id}`)}
                 >
-                  <td>{alert.location}</td>
+                  <td>
+                    {alert.location?.lat && alert.location?.lng ? (
+                      <a
+                        href={`https://www.google.com/maps?q=${alert.location.lat},${alert.location.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        📍 ({alert.location.lat.toFixed(4)}, {alert.location.lng.toFixed(4)})
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
+                  </td>
                   <td>{alert.emergencyType}</td>
                   <td>{alert.status}</td>
                   <td>
@@ -144,7 +143,6 @@ function Alerts() {
                       ? alert.timestamp.toDate().toLocaleString()
                       : alert.timestamp}
                   </td>
-                  <td>{alert.triggeredBy}</td>
                 </tr>
               ))}
             </tbody>
