@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import "./App.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebaseConfig";
-import policeLogo from "./bangladesh-police-logo.png"; // Logo in src/
+import logo from "./SHOTORKO.png";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -11,47 +12,34 @@ function Login({ onLogin }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      onLogin(res.user);
-      setError("");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      onLogin(userCredential.user);
     } catch (err) {
-      setError("Invalid email or password.");
+      setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="container login-container">
-      <img
-        src={policeLogo}
-        alt="Bangladesh Police Logo"
-        className="police-logo"
-      />
-      <h2>Police Login</h2>
-      <form onSubmit={handleLogin} className="login-form" noValidate>
-        <label htmlFor="email">Police Email</label>
+    <div className="login-container">
+      <img src={logo} alt="Bangladesh Police" className="login-logo" />
+      <h2>SHOTORKO</h2>
+      <form onSubmit={handleLogin} className="login-form">
         <input
-          id="email"
           type="email"
-          placeholder="Enter your police email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          autoComplete="username"
         />
-
-        <label htmlFor="password">Password</label>
         <input
-          id="password"
           type="password"
-          placeholder="Enter your password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          autoComplete="current-password"
         />
-
+        {error && <p className="error">{error}</p>}
         <button type="submit">Login</button>
-        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   );
