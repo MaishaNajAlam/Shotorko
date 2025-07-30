@@ -13,7 +13,7 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Alerts from "./Alerts";
 import AlertDetails from "./AlertDetails";
-import Header from "./Header"; // optional
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,7 +36,6 @@ function App() {
 
   return (
     <Router>
-      {user && <Header onLogout={handleLogout} />}
       <Routes>
         <Route
           path="/login"
@@ -44,7 +43,7 @@ function App() {
         />
         <Route
           path="/dashboard"
-          element={user ? <Dashboard user={user} /> : <Navigate to="/login" replace />}
+          element={user ? <Dashboard user={user} onLogout={handleLogout} /> : <Navigate to="/login" replace />}
         />
         <Route
           path="/alerts"
